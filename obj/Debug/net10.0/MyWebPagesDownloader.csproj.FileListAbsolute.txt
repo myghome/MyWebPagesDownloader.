@@ -1,0 +1,14 @@
+/Users/a70039/MyWebPagesDownloader/bin/Debug/net10.0/MyWebPagesDownloader
+/Users/a70039/MyWebPagesDownloader/bin/Debug/net10.0/MyWebPagesDownloader.deps.json
+/Users/a70039/MyWebPagesDownloader/bin/Debug/net10.0/MyWebPagesDownloader.runtimeconfig.json
+/Users/a70039/MyWebPagesDownloader/bin/Debug/net10.0/MyWebPagesDownloader.dll
+/Users/a70039/MyWebPagesDownloader/bin/Debug/net10.0/MyWebPagesDownloader.pdb
+/Users/a70039/MyWebPagesDownloader/obj/Debug/net10.0/MyWebPagesDownloader.GeneratedMSBuildEditorConfig.editorconfig
+/Users/a70039/MyWebPagesDownloader/obj/Debug/net10.0/MyWebPagesDownloader.AssemblyInfoInputs.cache
+/Users/a70039/MyWebPagesDownloader/obj/Debug/net10.0/MyWebPagesDownloader.AssemblyInfo.cs
+/Users/a70039/MyWebPagesDownloader/obj/Debug/net10.0/MyWebPagesDownloader.csproj.CoreCompileInputs.cache
+/Users/a70039/MyWebPagesDownloader/obj/Debug/net10.0/MyWebPagesDownloader.dll
+/Users/a70039/MyWebPagesDownloader/obj/Debug/net10.0/refint/MyWebPagesDownloader.dll
+/Users/a70039/MyWebPagesDownloader/obj/Debug/net10.0/MyWebPagesDownloader.pdb
+/Users/a70039/MyWebPagesDownloader/obj/Debug/net10.0/MyWebPagesDownloader.genruntimeconfig.cache
+/Users/a70039/MyWebPagesDownloader/obj/Debug/net10.0/ref/MyWebPagesDownloader.dll
