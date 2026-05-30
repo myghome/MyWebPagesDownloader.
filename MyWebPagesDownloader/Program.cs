@@ -19,7 +19,7 @@ using MyWebPagesDownloader.Infrastructure.Observability;
 // Configure Serilog
 Log.Logger = new LoggerConfiguration()
     .MinimumLevel.Information()
-    .WriteTo.Console(outputTemplate: "[{Timestamp:yyyy-MM-dd HH:mm:ss}] [{Level}] {Message:lj}{NewLine}{Exception}")
+    .WriteTo.Console(outputTemplate: "[{Timestamp:yyyy-MM-dd HH:mm:ss}] [{Level:u3}] {Message:lj}{NewLine}{Exception}")
     .CreateLogger();
 
 try
@@ -72,6 +72,24 @@ try
         await initializer.InitializeAsync();
     }
 
+    // Demo: Enqueue some test URLs
+    using (var scope = host.Services.CreateScope())
+    {
+        var orchestrator = scope.ServiceProvider.GetRequiredService<ChannelOrchestrator>();
+        var testUrls = new[]
+        {
+            new Uri("https://httpbin.org/html"),
+            new Uri("https://httpbin.org/delay/1"),
+            new Uri("https://httpbin.org/status/200"),
+            new Uri("https://httpbin.org/get"),
+            new Uri("https://httpbin.org/user-agent"),
+        };
+
+        Log.Information("📝 Enqueueing {Count} test URLs...", testUrls.Length);
+        await orchestrator.EnqueueAsync(testUrls, CancellationToken.None);
+        Log.Information("✅ All URLs enqueued. Starting workers...");
+    }
+
     // Graceful shutdown handling
     var cts = new CancellationTokenSource();
     Console.CancelKeyPress += (s, e) =>
@@ -84,6 +102,18 @@ try
     // Run host
     await host.RunAsync(cts.Token);
 
+    // Show final metrics
+    using (var scope = host.Services.CreateScope())
+    {
+        var metrics = scope.ServiceProvider.GetRequiredService<IDownloadMetrics>();
+        var health = scope.ServiceProvider.GetRequiredService<HealthService>();
+        Log.Information("📊 Final Metrics:");
+        Log.Information("   ✅ Success: {Success}", metrics.SuccessCount);
+        Log.Information("   ❌ Failure: {Failure}", metrics.FailureCount);
+        Log.Information("   ⏱️  Total Time: {Duration}ms", metrics.TotalDurationMilliseconds);
+        Log.Information("   {Status}", health.GetStatus());
+    }
+
     Log.Information("✅ MyWebPagesDownloader stopped gracefully.");
 }
 catch (Exception ex)
@@ -95,3 +125,4 @@ finally
 {
     await Log.CloseAndFlushAsync();
 }
+

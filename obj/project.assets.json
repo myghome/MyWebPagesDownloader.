@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/a70039/MyWebPagesDownloader/MyWebPagesDownloader.csproj",
+      "projectUniqueName": "/Users/a70039/MyWebPagesDownloader.worktrees/agents-async-web-page-downloader-architecture/MyWebPagesDownloader.csproj",
       "projectName": "MyWebPagesDownloader",
-      "projectPath": "/Users/a70039/MyWebPagesDownloader/MyWebPagesDownloader.csproj",
+      "projectPath": "/Users/a70039/MyWebPagesDownloader.worktrees/agents-async-web-page-downloader-architecture/MyWebPagesDownloader.csproj",
       "packagesPath": "/Users/a70039/.nuget/packages/",
-      "outputPath": "/Users/a70039/MyWebPagesDownloader/obj/",
+      "outputPath": "/Users/a70039/MyWebPagesDownloader.worktrees/agents-async-web-page-downloader-architecture/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/a70039/.nuget/NuGet/NuGet.Config"
