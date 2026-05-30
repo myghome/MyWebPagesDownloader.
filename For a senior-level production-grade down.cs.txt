@@ -1,0 +1,166 @@
+Things I'd still tweak
+1. Move IContentStore contract
+
+Currently:
+
+Infrastructure/
+ └── Storage/
+     └── IContentStore
+
+I would move the interface to:
+
+Core/
+ └── Contracts/
+     └── IContentStore
+
+Then:
+
+Infrastructure/
+ └── Storage/
+     └── FileSystemContentStore
+
+Same reason as the repository interface.
+
+2. Consider an IDownloadMetrics abstraction
+
+Current:
+
+Application/
+ └── Services/
+     └── MetricsService
+
+That's fine.
+
+But if you later switch:
+
+Console
+↓
+OpenTelemetry
+↓
+Prometheus
+
+an abstraction helps.
+
+Not mandatory.
+
+3. Add CancellationToken everywhere
+
+I'd make it a rule:
+
+Task ExecuteAsync(
+    DownloadRequest request,
+    CancellationToken cancellationToken)
+
+Every async operation.
+
+No exceptions.
+
+4. Add a DownloadContext
+
+As the project grows you'll pass:
+
+Url
+CorrelationId
+Attempt
+Priority
+TraceId
+
+around repeatedly.
+
+Eventually:
+
+DownloadContext
+
+can simplify that.
+
+Not required initially.
+
+One feature I'd strongly consider
+URL validation pipeline
+
+Add:
+
+Application/
+ └── Validation/
+     └── UrlValidator.cs
+
+Validate:
+
+valid URI
+http/https only
+no localhost (optional)
+no duplicate URLs
+
+before entering the channel.
+
+SQLite schema suggestion
+
+I'd store:
+
+Downloads
+---------
+Id
+Url
+Status
+Priority
+AttemptCount
+CreatedAt
+StartedAt
+CompletedAt
+CorrelationId
+HttpStatusCode
+ContentLength
+ElapsedMilliseconds
+ErrorMessage
+FilePath
+
+That schema supports almost every feature you've planned.
+
+Future extension points
+
+Your architecture now supports:
+
+Add priority queue
+DownloadPriority
+
+already exists.
+
+Good foresight.
+
+Add multiple download providers
+IDownloadProvider
+
+already supports:
+
+HttpClientProvider
+PlaywrightProvider
+SeleniumProvider
+MockProvider
+Add cloud storage later
+IContentStore
+
+could become:
+
+FileSystemContentStore
+AzureBlobContentStore
+S3ContentStore
+
+without touching Application.
+
+Final verdict
+
+If I saw this architecture in a GitHub repository called:
+
+MyWebPagesDownloader
+
+I would think:
+
+"This was designed by someone who understands modern .NET backend architecture and not just console applications."
+
+The only structural change I'd still make is:
+
+Move IContentStore
+from Infrastructure
+to Core/Contracts
+
+Everything else looks well-balanced. You avoided the common trap of turning a downloader into a mini-microservices platform with CQRS, MediatR, event buses, and other unnecessary complexity.
